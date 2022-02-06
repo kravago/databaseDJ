@@ -16,32 +16,87 @@ SELECT \* FROM users;
 Using the `movies_db` database, write the correct SQL queries for each of these tasks:
 
 1.  The title of every movie.
+    ```sql
+    SELECT title
+    FROM movies;
+    ```
+	
+1.  All information on the G-rated movies.
+    ```sql
+    SELECT id, title, release_year, runtime, rating, studio_id
+    FROM movies
+    where rating = 'G';
+    ```
 
-2.  All information on the G-rated movies.
-
-3.  The title and release year of every movie, ordered with the
+2.  The title and release year of every movie, ordered with the
     oldest movie first.
+    ```sql
+    SELECT id, title, release_year
+    FROM movies
+    ORDER BY release_year;
+    ```
     
-4.  All information on the 5 longest movies.
-
-5.  A query that returns the columns of `rating` and `total`, tabulating the
+3.  All information on the 5 longest movies.
+    ```sql
+    SELECT id, title, release_year, runtime, rating, studio_id
+    FROM movies
+    order by runtime desc
+    limit 5;
+    ```
+	
+4.  A query that returns the columns of `rating` and `total`, tabulating the
     total number of G, PG, PG-13, and R-rated movies.
+    ```sql
+    select rating, count(id) as total
+    from movies
+    group by rating
+    ```
 
-6.  A table with columns of `release_year` and `average_runtime`,
+5.  A table with columns of `release_year` and `average_runtime`,
     tabulating the average runtime by year for every movie in the database. The data should be in reverse chronological order (i.e. the most recent year should be first).
+    ```sql
+    select release_year, avg(runtime)
+    from movies
+    group by release_year
+    order by release_year desc
+    ```
 
-7.  The movie title and studio name for every movie in the
+6.  The movie title and studio name for every movie in the
     database.
+    ```sql
+    SELECT title, name as studio_name
+    FROM movies left join studios on movies.studio_id = studios.id;
+    ```
 
-8.  The star first name, star last name, and movie title for every
+7.  The star first name, star last name, and movie title for every
     matching movie and star pair in the database.
+    ```sql
+    select first_name, last_name, title
+    from movies 
+        inner join roles on movies.id = roles.movie_id
+        left join stars on roles.star_id = stars.id
+    ```
+	
+8.  The first and last names of every star who has been in a G-rated movie. The first and last name should appear only once for each star, even if they are in several G-rated movies. *IMPORTANT NOTE*: it's possible that there can be two *different* actors with the same name, so make sure your solution accounts for that.
+    ```sql
+    select distinct first_name, last_name
+    from movies 
+        inner join roles on movies.id = roles.movie_id
+        left join stars on roles.star_id = stars.id
+    where rating = 'G'
+    ```
 
-9.  The first and last names of every star who has been in a G-rated movie. The first and last name should appear only once for each star, even if they are in several G-rated movies. *IMPORTANT NOTE*: it's possible that there can be two *different* actors with the same name, so make sure your solution accounts for that.
-
-10. The first and last names of every star along with the number
+9.  The first and last names of every star along with the number
     of movies they have been in, in descending order by the number of movies. (Similar to #9, make sure
     that two different actors with the same name are considered separately).
-
+    ```sql
+    select distinct first_name, last_name
+    from movies 
+        inner join roles on movies.id = roles.movie_id
+        left join stars on roles.star_id = stars.id
+    where rating = 'G'
+    ```
+    
 ### The rest of these are bonuses
 
 11. The title of every movie along with the number of stars in
