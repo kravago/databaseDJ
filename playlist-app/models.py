@@ -34,8 +34,6 @@ class PlaylistSong(db.Model):
     song_id = db.Column(db.Integer, db.ForeignKey('song.id'), nullable=False)
 
     
-
-# DO NOT MODIFY THIS FUNCTION
 def connect_db(app):
     """Connect to database."""
 
