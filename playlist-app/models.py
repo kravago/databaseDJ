@@ -25,6 +25,7 @@ class Song(db.Model):
     title = db.Column(db.String, nullable=False)
     artist = db.Column(db.String, nullable=False)
 
+
 class PlaylistSong(db.Model):
     """Mapping of a playlist to a song."""
     __tablename__ = 'playlist_song'
