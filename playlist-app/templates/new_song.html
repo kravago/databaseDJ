@@ -2,7 +2,6 @@
 
 {% block content %}
 <form id="add-song" method="POST" action="/songs/add">
-    <form id="add-playlist" method="POST" action="/api/">
     {{ form.hidden_tag() }} <!--add type=hidden form fields -->
   
     {% for field in form
