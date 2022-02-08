@@ -121,10 +121,6 @@ def add_song_to_playlist(playlist_id):
                                                             .all())
     ]
 
-    # import pdb
-    # pdb.set_trace()
-
-
     if form.validate_on_submit():
 
         playlist_song = PlaylistSong(song_id=form.song.data,

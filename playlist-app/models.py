@@ -13,8 +13,8 @@ class Playlist(db.Model):
     name = db.Column(db.String, nullable=False)
     description = db.Column(db.String)
 
-    songs = db.relationship('Song', secondary='playlist_song', backref='playlist')
-    playlist_song = db.relationship('PlaylistSong', backref='playlist')
+    songs = db.relationship('Song', secondary='playlist_song', backref='playlists')
+    playlist_song = db.relationship('PlaylistSong', backref='playlists')
 
 
 class Song(db.Model):
